@@ -2,5 +2,6 @@
 .classpath
 .project
 .settings/
-src/*
-*.java
+module-info.java
+AulaMus.java
+Contrato.java
