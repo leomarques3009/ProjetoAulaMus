@@ -5,7 +5,7 @@
 <p>Como desafio, e principal obejtivo, o projeto deve criar um documento do contrato e gerar como PDF</p>
 
 ## Próximos passos
-<p> Criação dos métodos meusAlunos() e meusPlanos()</p>
+<p> Criação da lista de aulas para a Classe Pessoa</p>
 
 ## Tecnologias
 1. Java
@@ -13,4 +13,5 @@
 3. git e github
 
 ## Atualização
-Criação das classes e metodos CRUD
+<p>Atualiazção dos CRUDS (funcionando sem um banco de dados) e adicionando métodos que setam as classes em outras</p>
+<p>meuAluno(), meuPlano(), meuTutor(), carregarPorCpf() e carregarPorId()</p>

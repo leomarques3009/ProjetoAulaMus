@@ -11,74 +11,68 @@ public class Tutor extends Pessoa{
 		super(cpf, rg, nome, telefone, email, idade, endereco);
 		// TODO Auto-generated constructor stub
 	}
+
+	private List<Tutor> tutores = new ArrayList<Tutor>();
+	
+	//functions
+	@Override
+	public Tutor carregarPorCpf(String Cpf) {
+		Tutor tutorCpf = new Tutor();
+		for(Tutor tl : tutores) {
+			if(tl.getCpf().equals(Cpf)) {
+				tutorCpf = tl;
+			}
+		}
+		
+		return tutorCpf;
+	}
 	
 	//CRUD
-	Scanner sc = new Scanner(System.in);
-	List<Tutor> tutores = new ArrayList<Tutor>();
-	
-	public Tutor criarTutor() {
+	public void criarTutor(String cpf, String rg, String nome, String telefone, 
+			String email, int idade, String endereco) {
+		
 		Tutor nTutor = new Tutor();
 		
-		System.out.println("Digite seu nome: ");
-		nTutor.setNome(sc.nextLine());
-		System.out.println("Digite seu CPF: ");
-		nTutor.setCpf(sc.next());
-		System.out.println("Digite seu RG: ");
-		nTutor.setRg(sc.next());
-		System.out.println("Digite seu telefone: ");
-		nTutor.setTelefone(sc.next());
-		System.out.println("Digite seu email: ");
-		nTutor.setEmail(sc.next());
-		System.out.println("Digite sua idade: ");
-		nTutor.setIdade(sc.nextInt());
-		sc.nextLine();
-		System.out.println("Digite seu endereço: ");
-		nTutor.setEndereco(sc.nextLine());
+		nTutor.setCpf(cpf);
+		nTutor.setRg(rg);
+		nTutor.setNome(nome);
+		nTutor.setTelefone(telefone);
+		nTutor.setEmail(email);
+		nTutor.setIdade(idade);
+		nTutor.setEndereco(endereco);
 		
 		tutores.add(nTutor);
-		System.out.println("Cadastro realizado com sucesso.");
-
-		return nTutor;
+		System.out.println("Tutor cadastrado!");
 	}
-	public void listarTutor() {
-		System.out.println("Tutotres cadastrados: ");
-		for(Tutor t : tutores) {
-			System.out.printf("Nome: %s"
-					+ "%n%CPF: %s"
-					+ "%nRG: %s"
-					+ "%nTelefone: %s"
-					+ "%nEmail: %s"
-					+ "%nIdade: %d"
-					+ "%nEndereço: %s"
-					+ "", t.getNome(), t.getCpf(), t.getRg(), t.getTelefone(), t.getEmail(), t.getIdade(), t.getEndereco());
-		}
+	
+	public List<Tutor> listarTutor() {
+		List<Tutor> list = new ArrayList<Tutor>();
+		
+		list = tutores;
+		
+		return list;
 	}
-	public void alterarTutor(String cpf) {
-		System.out.println("Digite os novos dados:");
-		for(Tutor t : tutores) {
-			if(t.getCpf().equals(cpf)) {
-				System.out.println("Digite seu nome: ");
-				t.setNome(sc.nextLine());
-				System.out.println("Digite seu telefone: ");
-				t.setTelefone(sc.next());
-				System.out.println("Digite seu Email: ");
-				t.setEmail(sc.next());
-				System.out.println("Digite sua idade: ");
-				t.setIdade(sc.nextInt());
-				sc.nextLine();
-				System.out.println("Digite seu endereço: ");
-				t.setEndereco(sc.nextLine());
+	public void alterarTutor(String cpf, String nome, String telefone, 
+			String email, int idade, String endereco) {
+		
+		for(Tutor tl : tutores) {
+			if(tl.getCpf().equals(cpf)) {
+				tl.setNome(nome);
+				tl.setTelefone(telefone);
+				tl.setEmail(email);
+				tl.setIdade(idade);
+				tl.setEndereco(endereco);
 				
-				System.out.println("Dados cadastrados com sucesso!");
+				System.out.println("Tutor alterado.");
 			}
 		}
 	}
 	public void excluirTutor(String cpf) {
 		Tutor delTutor = new Tutor();
 		
-		for (Tutor t : tutores) {
-			if(t.getCpf().equals(cpf)) {
-				delTutor = t;
+		for (Tutor tl : tutores) {
+			if(tl.getCpf().equals(cpf)) {
+				delTutor = tl;
 			}
 		}
 		

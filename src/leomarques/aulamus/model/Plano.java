@@ -18,45 +18,52 @@ public class Plano {
 		this.setPeriodo(periodo);
 		this.setDesconto(desconto);
 	}
-
-	//CRUD
-	List<Plano> planos = new ArrayList<Plano>();
-	int idNovo = 1;
 	
-	public void criarPlano() {
+
+	private List<Plano> planos = new ArrayList<Plano>();
+	int idNovo = 1;
+
+	//functions
+	public Plano carregarPorID(int idPlano) {
+		Plano rPlano = new Plano();
+		
+		for(Plano pl : this.planos) {
+			if(pl.getIdPlano() == idPlano) {
+				rPlano = pl;
+			}
+		}
+		
+		return rPlano;
+	}
+	
+	//CRUD
+	public void criarPlano(String periodo, double desconto) {
 		Plano nPlano = new Plano();
 		
-		this.setIdPlano(idNovo);
+		nPlano.setIdPlano(idNovo);
 		
-		System.out.println("Vamos criar um novo Plano: ");
-		System.out.println("Digite o tempo de Plano: ");
-		nPlano.setPeriodo(sc.next());
-		System.out.println("Digite o desconto: ");
-		nPlano.setDesconto(sc.nextDouble());
-		
+		nPlano.setPeriodo(periodo);
+		nPlano.setDesconto(desconto);
 		
 		planos.add(nPlano);
-		System.out.println("Cadastro realizado!!");
+		System.out.println("Plano Cadastrado!");
 		
 		idNovo ++;
 	}
-	public void listarPlanos() {
-		System.out.println("Planos cadatrados");
-		for(Plano p : planos) {
-			System.out.println("==================");
-			System.out.println("Período: " + p.getPeriodo()
-					+ "\nDesconto: "+ p.getDesconto() +"%");
-		}
+	public List<Plano> listarPlanos() {
+		List<Plano> list = new ArrayList<Plano>();
+		list = this.planos;
+		
+		return list;
+		
 	}
-	public void alterarPlano(int idPlano) {
+	public void alterarPlano(int idPlano, String periodo, double desconto) {
 		for(Plano p : planos) {
 			if(p.getIdPlano() == idPlano) {
-				System.out.println("Digite o novo Período: ");
-				p.setPeriodo(sc.next());
-				System.out.println("Digite o novo desconto: ");
-				p.setDesconto(sc.nextDouble());
+				p.setPeriodo(periodo);
+				p.setDesconto(desconto);
 				
-				System.out.println("Plano alterado com sucesso;");
+				System.out.println("Plano alterado com sucesso!");
 			}
 		}
 	}

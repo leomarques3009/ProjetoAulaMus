@@ -14,14 +14,14 @@ public class Aula {
 	private double valHAula;
 	private double valFinal;
 	private String modalidade;
-	Plano plano;
-	Aluno aluno;
+	private Plano plano;
+	private Aluno aluno;
+	private Professor professor;
 
-	Scanner sc = new Scanner(System.in);
 	
 	public Aula() {}
 	public Aula(int idAula, String instrumento, String diaAula, String horaAula, double valHAula,
-			String modalidade, Plano plano, Aluno aluno) {
+			String modalidade, Plano plano, Aluno aluno, Professor professor) {
 		this.idAula = idAula;
 		this.instrumento = instrumento;
 		this.diaAula = diaAula;
@@ -30,82 +30,76 @@ public class Aula {
 		this.modalidade = modalidade;
 		this.plano = plano;
 		this.aluno = aluno;
+		this.professor = professor;
 	}
 
 	//functions
+	public Aula carregarPorId(int id) {
+		Aula aulaId = new Aula();
+		
+		for(Aula al : aulas) {
+			if(al.getIdAula() == id) {
+				aulaId = al;
+			}
+		}
+		
+		return aulaId;
+	}
+	
 	public double CalcMes(double valHAula, Plano plano) {
-		double valFinal = (valHAula - valHAula*plano.getDesconto())*4;
+		double valFinal = (valHAula - valHAula*plano.getDesconto()/100)*4;
 		
 		return valFinal;
 	}
-	public Plano meuPlano() {
-		Plano aulaPlano = new Plano();
-		aulaPlano.listarPlanos();
-		
+	
+	public void meuAluno(Aluno aluno) {
+		setAluno(aluno);
 	}
-	public Aluno meuAluno() {
-		
+	public void meuProfessor(Professor professor) {
+		setProfessor(professor);
 	}
 	
+	
+	private List<Aula> aulas = new ArrayList<Aula>();
 	
 	//CRUD
-	List<Aula> aulas = new ArrayList<Aula>();
 	int idNovo = 1;
 	
-	public void criarAula() {
+	public void criarAula(String instrumento, String diaAula, String horaAula, double valHAula,
+			String modalidade, Plano plano) {
 		Aula nAula = new Aula();
 		
 		nAula.setIdAula(idNovo);
-		System.out.println("Digite o instrumento: ");
-		nAula.setInstrumento(sc.next());
-		System.out.println("Digite o dia da aula:");
-		nAula.setDiaAula(sc.next());
-		System.out.println("Digite o horário da aula");
-		nAula.setHoraAula(sc.next());
-		System.out.println("Digite a modalidade: ");
-		nAula.setModalidade(sc.next());
-		System.out.println("Digite o valor da Hora/aula: ");
-		nAula.setValHAula(sc.nextDouble());
-		nAula.setPlano(meuPlano());
-		nAula.setAluno(meuAluno());
+		nAula.setInstrumento(instrumento);
+		nAula.setDiaAula(diaAula);
+		nAula.setHoraAula(horaAula);
+		nAula.setValHAula(valHAula);
+		nAula.setModalidade(modalidade);
+		nAula.setPlano(plano);
 		nAula.setValFinal(CalcMes(nAula.getValHAula(), nAula.getPlano()));
 		
 		aulas.add(nAula);
-		System.out.println("Cadastro realizado com suceso");
+		System.out.println("Aula cadastrada!");
 		idNovo ++;
 	}
 	
-	public void listarAula() {
-		System.out.println("Aulas cadastradas:");
+	public List<Aula> listarAula() {
+		List<Aula> list = new ArrayList<Aula>();
 		
-		for(Aula a : aulas) {
-			System.out.printf("%nInstrumento: %s"
-					+ "%nDia: %s"
-					+ "%nHora: %s"
-					+ "%nModalidade: %s"
-					+ "%nAluno: %s"
-					+ "%nPlano: %s"
-					+ "%nValor mensal: R$%.2f"
-					+ "", a.getInstrumento(), a.getDiaAula(), a.getHoraAula(), a.getModalidade(), a.getAluno().getNome()
-					, a.getPlano().getPeriodo(), a.getValFinal());
-		}
+		list = aulas;
+		
+		return list;
 	}
 	
-	public void alterarAula(int idAula) {
+	public void alterarAula(int idAula, String instrumento, String diaAula, String horaAula, double valHAula,
+			String modalidade) {
 		for(Aula a : aulas) {
 			if(a.getIdAula() == idAula) {
-				System.out.println("Digite o instrumento: ");
-				a.setInstrumento(sc.next());
-				System.out.println("Digite o dia da aula:");
-				a.setDiaAula(sc.next());
-				System.out.println("Digite o horário da aula");
-				a.setHoraAula(sc.next());
-				System.out.println("Digite a modalidade: ");
-				a.setModalidade(sc.next());
-				System.out.println("Digite o valor da Hora/aula: ");
-				a.setValHAula(sc.nextDouble());
-				a.setPlano(meuPlano());
-				a.setAluno(meuAluno());
+				a.setInstrumento(instrumento);
+				a.setDiaAula(diaAula);        
+				a.setHoraAula(horaAula);      
+				a.setModalidade(modalidade);  
+				a.setValHAula(valHAula);      
 				a.setValFinal(CalcMes(a.getValHAula(), a.getPlano()));
 				
 				System.out.println("Aula alterada com suceso!");
@@ -178,7 +172,13 @@ public class Aula {
 		return aluno;
 	}
 	public void setAluno(Aluno aluno) {
-		
+		this.aluno = aluno;
+	}
+	public Professor getProfessor() {
+		return professor;
+	}
+	public void setProfessor(Professor professor) {
+		this.professor = professor; 
 	}
 	
 	

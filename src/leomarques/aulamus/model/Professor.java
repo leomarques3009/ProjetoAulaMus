@@ -9,12 +9,27 @@ public class Professor extends Pessoa{
 
 	public Professor(){}
 	
-	public Professor(String cpf, String rg, String nome, String telefone, String email, int idade, String endereco,
-			String cnpj) {
+	public Professor(String cpf, String rg, String nome, String telefone, String email, int idade, String endereco, String cnpj) {
 		super(cpf, rg, nome, telefone, email, idade, endereco);
 		// TODO Auto-generated constructor stub
 		
 		this.cnpj = cnpj;
+	}
+
+	private List<Professor> professores = new ArrayList<Professor>();
+	
+	//functions
+	@Override
+	public Professor carregarPorCpf(String cpf) {
+		Professor profCpf = new Professor();
+		
+		for(Professor pl : professores) {
+			if(pl.getCpf().equals(cpf)) {
+				profCpf = pl;
+			}
+		}
+		
+		return profCpf;
 	}
 
 	/*
@@ -35,72 +50,47 @@ public class Professor extends Pessoa{
 	}*/
 	
 	//CRUD
-	Scanner sc = new Scanner(System.in);
-	List<Professor> professores = new ArrayList<Professor>();
 	
-	public void criarProfessor() {
+	public void criarProfessor(String cnpj, String cpf, String rg, String nome, String telefone, 
+			String email, int idade, String endereco) {
 		Professor nProfessor = new Professor();
 		
-		System.out.println("Digite seu nome: ");
-		nProfessor.setNome(sc.nextLine());
-		System.out.println("Digite seu CPF: ");
-		nProfessor.setCpf(sc.next());
-		System.out.println("Digite seu RG: ");
-		nProfessor.setRg(sc.next());
-		System.out.println("Digite seu CNPJ: ");
-		nProfessor.setCnpj(sc.next());
-		System.out.println("Digite seu telefone: ");
-		nProfessor.setTelefone(sc.next());
-		System.out.println("Digite seu email: ");
-		nProfessor.setEmail(sc.next());
-		System.out.println("Digite sua idade: ");
-		nProfessor.setIdade(sc.nextInt());
-		sc.nextLine();
-		System.out.println("Digite seu endereço: ");
-		nProfessor.setEndereco(sc.nextLine());
+		nProfessor.setCnpj(cnpj);
+		nProfessor.setCpf(cpf);
+		nProfessor.setRg(rg);
+		nProfessor.setNome(nome);
+		nProfessor.setTelefone(telefone);
+		nProfessor.setEmail(email);
+		nProfessor.setIdade(idade);
+		nProfessor.setEndereco(endereco);
 		
 		professores.add(nProfessor);
 		
-		System.out.println("Cadastro realizado com sucesso.");
+		System.out.println("Professor Cadastrado!");
 	}
 	
-	public void listarProfessor() {
-		System.out.println("||Lista de Professores||");
-		for(Professor p : professores) {
-			System.out.println("======================");
-			System.out.printf("CPF: %s"
-					+ "%nRG: %s"
-					+ "%nCNPJ: %s"
-					+ "%nNome: %s"
-					+ "%nTelefone: %s"
-					+ "%nEmail: %s"
-					+ "%nIdade: %d"
-					+ "%nEndereço: %s"
-					+ "", p.getCpf(), p.getRg(), p.getCnpj(), p.getNome(), p.getTelefone()
-					, p.getEmail(), p.getIdade(), p.getEndereco());
-		}
+	public List<Professor> listarProfessor() {
+		List<Professor> list = new ArrayList<Professor>();
+		
+		list = professores;
+		
+		return list;
+		
 	}
 	
-	public void alterarProfessor(String cpf) {
-		for(Professor p : professores) {
-			if(p.getCpf().equals(cpf)) {
-				System.out.println("Digite os novos dados:");
+	public void alterarProfessor(String cpf, String cnpj, String nome, String telefone
+			, String email, int idade, String endereco) {
+		for(Professor pl : professores) {
+			if(pl.getCpf().equals(cpf)) {
 				
-				System.out.println("Digite seu nome: ");
-				p.setNome(sc.nextLine());
-				System.out.println("Digite seu CNPJ: ");
-				p.setCnpj(sc.next());
-				System.out.println("Digite seu telefone: ");
-				p.setTelefone(sc.next());
-				System.out.println("Digite seu email: ");
-				p.setEmail(sc.next());
-				System.out.println("Digite sua idade: ");
-				p.setIdade(sc.nextInt());
-				sc.nextLine();
-				System.out.println("Digite seu endereço: ");
-				p.setEndereco(sc.nextLine());
+				pl.setCnpj(cnpj);
+				pl.setNome(nome);
+				pl.setTelefone(telefone);
+				pl.setEmail(email);
+				pl.setIdade(idade);
+				pl.setEndereco(endereco);
 				
-				System.out.println("Dados alterados com sucesso.");
+				System.out.println("Professor Alterado.");
 			}
 		}
 	}

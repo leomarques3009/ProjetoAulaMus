@@ -1,6 +1,8 @@
 package leomarques.aulamus.model;
 
-public class Pessoa {
+import java.util.List;
+
+public abstract class Pessoa {
 	private String cpf;
 	private String rg;
 	private String nome;
@@ -8,7 +10,7 @@ public class Pessoa {
 	private String email;
 	private int idade;
 	private String endereco;
-	private Aula aula;
+	private List<Aula> aulas;
 	
 	public Pessoa() {}
 	public Pessoa(String cpf, String rg, String nome, String telefone, String email, int idade, String endereco) {
@@ -20,6 +22,12 @@ public class Pessoa {
 		this.email = email;
 		this.idade = idade;
 		this.endereco = endereco;
+	}
+	
+	//functions
+	protected abstract Pessoa carregarPorCpf(String cpf);
+	public void minhaAula(Aula aula) {
+		aulas.add(aula);
 	}
 	
 	//Getters & Setters
@@ -64,12 +72,6 @@ public class Pessoa {
 	}
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-	public Aula getAula() {
-		return aula;
-	}
-	public void setAula(Aula aula) {
-		this.aula = aula;
 	}
 	
 }
